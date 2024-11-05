@@ -1,5 +1,5 @@
 {
-  "name": "template-express-luthfi",
+  "name": "Stock_Opname_EOS",
   "version": "1.0.0",
   "main": "./src/index.ts",
   "scripts": {
@@ -13,7 +13,7 @@
     "seed": "ts-node prisma/seed.ts",
     "postinstall": "prisma generate"
   },
-  "author": "Muhamad Luthfi Sadli",
+  "author": "Deni Dwi Noer Prasetyo",
   "license": "MIT",
   "description": "membuat template rest api dengan express ts",
   "dependencies": {
@@ -30,7 +30,7 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
     "prisma": "^5.19.1",
-    "template-express-luthfi": "file:",
+    "Stock Opname EOS": "file:",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0"
   },
