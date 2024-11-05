@@ -1,26 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { loginService, logoutService, registerService } from "./authService";
-import { ErrorApp, HandleResponseApi } from "../../utils/Response.Mapper";
+import { loginService, logoutService } from "./authService";
+import { ErrorApp, HandleResponseApi } from "../../utils/ResponseMapper";
 import { MESSAGE_CODE } from "../../utils/MessageCode";
 import { MESSAGES } from "../../utils/Messages";
 import { LoginAuthResponse } from "./authTypes";
-import { getLinkImage } from "../../config/multerConfig";
-
-export const registerController = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const [linkImage, pathImage] = getLinkImage(req, "users");  
-  
-  const register = await registerService({...req.body, image: req.file, linkImage, pathImage});
-
-  if (register instanceof ErrorApp) {
-    next(register);
-    return;
-  }
-  HandleResponseApi(res, 201, MESSAGE_CODE.SUCCESS, MESSAGES.CREATED.USER.ACCOUNT);
-};
 
 export const loginController = async (req: Request, res: Response, next: NextFunction) => {
   // const { email, password } = req.body
@@ -45,4 +28,11 @@ export const logoutController = async (req: Request, res: Response, next: NextFu
   }
 
   HandleResponseApi(res, 200, MESSAGE_CODE.SUCCESS, MESSAGES.SUCCESS.LOGOUT)
+}
+
+export const checkToken = async (
+  req: Request,
+  res: Response,
+) => {
+  HandleResponseApi(res, 200, MESSAGE_CODE.SUCCESS, MESSAGES.SUCCESS.TOKEN)
 }

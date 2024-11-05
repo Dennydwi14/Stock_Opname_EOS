@@ -16,7 +16,8 @@ export const MESSAGES = {
         SUB_ACARA: "Sub Acara created successfully",
         ABSENSI: "Absensi created successfully",
         MERCHANDISE: "Merchandise created successfully",
-
+        LOCATION: "Location created successfully",
+        TOOL: "Tools created successfully"
     },
     ERROR: {
         NOT_FOUND: {
@@ -45,7 +46,9 @@ export const MESSAGES = {
             SERVICE: "Service not found",
             ROUTE: "Route not found, Check again your endpoint!",
             NOTIFICATION: "Notification not found",
-            VERSION: "Version not found"
+            VERSION: "Version not found",
+            LOCATION: "Location not found",
+            TOOLS: "Tools not found"
         },
         ALREADY: {
             GLOBAL: {
@@ -67,7 +70,8 @@ export const MESSAGES = {
             OTP_VERIFIED: "OTP is already verified, please request otp again to forget password",
             LOGIN: "Please log out on other device and login again",
             INITIAL: "Initial user already exist",
-            INITIAL_VERSION: "Initial version already exist"
+            INITIAL_VERSION: "Initial version already exist",
+            LOCATION: "Location already exist"
         },
         INVALID: {
             GLOBAL: {
@@ -87,7 +91,7 @@ export const MESSAGES = {
             },
             AUTH: "Invalid credentials token",
             ANGGOTA: "You're not anggota",
-            STATUS: "Status must be boolean type",
+            STATUS: "Status must be active or ready or back",
             NAME: "Name must be a string",
             JABATAN: "Jabatan is invalid",
             NEW_PASSWORD: "New password cannot be the same as the old password",
@@ -115,6 +119,13 @@ export const MESSAGES = {
             STOCK: "Stock must be a number and more than 0",
             QUANTITY: "Quantity must be a number and more than 0",
             QUANTITY_STOCK: "Quantity must be less than or equal to stock",
+            INFORMATION: "Information must be a string",
+            DATE_ACTIVATION: "Date Activation must be a date",
+            INSTALASI_UNIT: "Instalasi Unit must be a string",
+            UNIT: "Unit must be a string",
+            NUMBER_WO: "Number Wo must be a string",
+            TYPE: "Type must be a string",
+            SERIAL_NUMBER: "Serial Number must be a string",
         },
         UNAUTHORIZED: {
             AUTH: "If you are not logged in, please log in first",
@@ -124,6 +135,13 @@ export const MESSAGES = {
             ADMIN: "Admin can't access this app"
         },
         REQUIRED: {
+            SERIAL_NUMBER: "Serial Number is required",
+            TYPE: "Type is required",
+            NUMBER_WO: "Number Wo is required",
+            INSTALASI_UNIT: "Instalasi Unit is required",
+            UNIT: "Unit is required",
+            DATE_ACTIVATION: "Date Activation is required",
+            STATUS: "Status is required",
             USER_ID: "User Id is required",
             PRODUCT_ID: "Product Id is required",
             QUANTITY: "Quantity is required",
@@ -155,6 +173,7 @@ export const MESSAGES = {
             OTP: "OTP is required",
             FCM_TOKEN: "FCM Token is required",
             STOCK: "Stock is required",
+            LOCATION: "Location is required",
         },
         RELATION: {
             ANGKATAN: "Angkatan cannot be deleted because it has a relationship"
@@ -164,6 +183,11 @@ export const MESSAGES = {
         }
     },
     SUCCESS: {
+        TOOL:{
+            GET: "Success to fetch tool",
+            DELETE: "Success to delete tool",
+            UPDATE: "Success to update tool"
+        },
         LOGIN: "Success to login",
         USER: {
             GET: "Success to fetch user",
@@ -263,6 +287,11 @@ export const MESSAGES = {
         VERSION: {
             GET: "Success to get version",
             UPDATE: "Success to update version"
+        },
+        LOCATION: {
+            GET: "Success to get location",
+            DELETE: "Success to delete location",
+            UPDATE: "Success to update location"
         }
     }
 }

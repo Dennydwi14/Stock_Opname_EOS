@@ -1,17 +1,15 @@
 import { Router, type Request, type Response } from "express";
 import { MESSAGES } from "../utils/Messages";
-import userRoute from "../app/user/userRoute";
+import locationRoute from "../app/location/locationRoute";
 import authRoute from "../app/auth/authRoute";
-import productRoute from "../app/product/productRoute";
-import orderRoute from "../app/order/orderRoute";
+import toolRoute from "../app/tools/toolsRoute";
 import { MESSAGE_CODE } from "../utils/MessageCode";
 
 const route = Router();
 
-route.use("/users", userRoute)
+route.use("/locations", locationRoute)
 route.use("/auth", authRoute)
-route.use("/products", productRoute)
-route.use("/orders", orderRoute)
+route.use("/tools", toolRoute)
 
 route.get("/", (req: Request, res: Response) => {
     return res.json({ message: "Hello World 🚀" })

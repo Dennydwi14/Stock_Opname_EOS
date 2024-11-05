@@ -2,10 +2,10 @@ import { NextFunction, type Response } from "express";
 import { TokenExpiredError, decode, verify } from 'jsonwebtoken';
 import { MESSAGES } from "../utils/Messages";
 import { MESSAGE_CODE } from "../utils/MessageCode";
-import { getUserById } from "../app/user/userRepository";
-import { HandleResponseApi } from "../utils/Response.Mapper";
+import { HandleResponseApi } from "../utils/ResponseMapper";
 import { environment } from "../config/dotenvConfig";
 import { RequestWithUserId, TokenDecodeInterface } from "./tokenTypes";
+import { getUserById } from "../app/auth/authRepository.";
 
 export const VerifyAdmin = (req: RequestWithUserId, res: Response, next: NextFunction) => {
     if (!req.headers.authorization) {
@@ -31,9 +31,9 @@ export const VerifyAdmin = (req: RequestWithUserId, res: Response, next: NextFun
                 return HandleResponseApi(res, 401, MESSAGE_CODE.UNAUTHORIZED, MESSAGES.ERROR.UNAUTHORIZED.RECOGNIZED)
             }
             
-            if (getUser.role !== "admin") {
-                return HandleResponseApi(res, 401, MESSAGE_CODE.UNAUTHORIZED, MESSAGES.ERROR.INVALID.ROLE_ADMIN)
-            }
+            // if (getUser.role !== "admin") {
+            //     return HandleResponseApi(res, 401, MESSAGE_CODE.UNAUTHORIZED, MESSAGES.ERROR.INVALID.ROLE_ADMIN)
+            // }
         }
         req.userId = decoded?.id;
         next()

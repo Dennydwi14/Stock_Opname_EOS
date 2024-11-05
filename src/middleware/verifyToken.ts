@@ -1,13 +1,13 @@
-import { NextFunction, type Response } from "express";
+import { NextFunction, type Response, type Request } from "express";
 import { TokenExpiredError, decode, verify } from 'jsonwebtoken';
 import { MESSAGES } from "../utils/Messages";
 import { MESSAGE_CODE } from "../utils/MessageCode";
 import { environment } from "../config/dotenvConfig";
-import { HandleResponseApi } from "../utils/Response.Mapper";
-import { RequestWithUserId, TokenDecodeInterface } from "./tokenTypes";
-import { getUserById } from "../app/user/userRepository";
+import { HandleResponseApi } from "../utils/ResponseMapper";
+import { TokenDecodeInterface } from "./tokenTypes";
+import { getUserById } from "../app/auth/authRepository.";
 
-export const VerifyToken = (req: RequestWithUserId, res: Response, next: NextFunction) => {
+export const VerifyToken = (req: Request, res: Response, next: NextFunction) => {
     if (!req.headers.authorization) {
         return HandleResponseApi(res, 401, MESSAGE_CODE.UNAUTHORIZED, MESSAGES.ERROR.UNAUTHORIZED.FORBIDDEN)
     }
@@ -28,7 +28,7 @@ export const VerifyToken = (req: RequestWithUserId, res: Response, next: NextFun
         if (!user) {
             return HandleResponseApi(res, 401, MESSAGE_CODE.UNAUTHORIZED, MESSAGES.ERROR.UNAUTHORIZED.RECOGNIZED)
         }
-        req.userId = decoded?.id;
+        req.params.userId = decoded?.id;
         next()
     })
 

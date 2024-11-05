@@ -1,7 +1,7 @@
 import multer, { FileFilterCallback } from "multer";
 import { MESSAGE_CODE } from "../utils/MessageCode";
 import { MESSAGES } from "../utils/Messages";
-import { ErrorApp } from "../utils/Response.Mapper";
+import { ErrorApp } from "../utils/ResponseMapper";
 import { Request } from "express";
 import path from "path";
 import fs from "fs";

@@ -18,48 +18,48 @@ model User {
   name        String
   email       String    @unique
   password    String
-  role        Role?     @default(anggota)
-  image       String    @unique
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at")
-
-  orders      Order[]
 
   @@map("users")
 }
 
-model Product {
-  id          String     @id @unique @default(uuid())
-  name        String
-  description String?
-  image       String
-  price       Float
-  stock        Int
-  createdAt   DateTime   @default(now()) @map("created_at")
-  updatedAt   DateTime   @default(now()) @updatedAt @map("updated_at")
+model Location {
+  id       String  @id @unique @default(uuid())
+  location String
 
-  orders      Order[]
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @default(now()) @updatedAt @map("updated_at")
 
-  @@map("products")
+  tools    Tool[]
+
+  @@map("locations")
 }
 
-model Order {
-  id          String     @id @unique @default(uuid())
-  userId      String
-  productId   String
-  quantity    Int
-  totalPrice  Float      @map("total_price")
-  createdAt   DateTime   @default(now()) @map("created_at")
-  updatedAt   DateTime   @default(now()) @updatedAt @map("updated_at")
+model Tool {
+  id                String   @id @unique @default(uuid())
+  serialNumber      String
+  type              String
+  numberWo          String
+  instalasiUnit     String
+  locationId        String
+  unit              String
+  name              String
+  dateActivation    DateTime
+  status            Status
+  information       String?
 
-  // Relasi ke User dan Product
-  user     User    @relation(fields: [userId], references: [id])
-  product  Product @relation(fields: [productId], references: [id])
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @default(now()) @updatedAt @map("updated_at")
 
-  @@map("orders")
+  location          Location @relation(fields: [locationId], references: [id])
+
+  @@map("tools")
 }
 
-enum Role {
-  admin
-  anggota
+
+enum Status {
+  Active
+  Ready
+  Back
 }

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express"
-import { ErrorApp, HandleResponseApi } from "./Response.Mapper"
+import { ErrorApp, HandleResponseApi } from "./ResponseMapper"
 import { MESSAGES } from "./Messages"
 import { MESSAGE_CODE } from "./MessageCode"
 import multer from "multer"
