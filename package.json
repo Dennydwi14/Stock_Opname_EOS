@@ -1,5 +1,5 @@
 {
-  "name": "Stock_Opname_EOS",
+  "name": "stock_opname_eos",
   "version": "1.0.0",
   "main": "./src/index.ts",
   "scripts": {
@@ -30,7 +30,6 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
     "prisma": "^5.19.1",
-    "Stock Opname EOS": "file:",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0"
   },
