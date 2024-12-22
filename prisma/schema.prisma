@@ -117,6 +117,7 @@ model Inventory {
 model HistoryOnt {
   id             String   @id @unique @default(uuid())
   ontId          String
+  key            String
   activity       String
   createdAt      DateTime @default(now())
 

@@ -34,5 +34,5 @@ export const checkToken = async (
   req: Request,
   res: Response,
 ) => {
-  HandleResponseApi(res, 200, MESSAGE_CODE.SUCCESS, MESSAGES.SUCCESS.TOKEN)
+  HandleResponseApi(res, 200, MESSAGE_CODE.SUCCESS, MESSAGES.SUCCESS.CHECK)
 }

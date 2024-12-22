@@ -29,6 +29,7 @@ export const VerifyToken = (req: Request, res: Response, next: NextFunction) => 
             return HandleResponseApi(res, 401, MESSAGE_CODE.UNAUTHORIZED, MESSAGES.ERROR.UNAUTHORIZED.RECOGNIZED)
         }
         req.params.userId = decoded?.id;
+        req.params.token = token;
         next()
     })
 

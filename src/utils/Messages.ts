@@ -204,6 +204,8 @@ export const MESSAGES = {
     },
   },
   SUCCESS: {
+    CHECK: "Success to check token",
+    LOGOUT: "Success to logout",
     HISTORY: {
       GET: "Success to fetch history",
       DELETE: "Success to delete history",

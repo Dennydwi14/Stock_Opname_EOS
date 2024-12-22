@@ -1,9 +1,18 @@
 import { Prisma, Status } from "@prisma/client";
 import { prisma } from "../../config/prismaConfig";
 import { IFilterStb, StbResponseBodyDTO } from "./stbsTypes";
+import { createHistoryStb } from "../history/historiesRepository";
+import { v4 as uuidv4 } from "uuid";
 
 // Mengambil daftar pesanan
-export const getStb = async ({ page, perPage, search, status, locationId, deviceLocation }: IFilterStb) => {
+export const getStb = async ({
+  page,
+  perPage,
+  search,
+  status,
+  locationId,
+  deviceLocation,
+}: IFilterStb) => {
   const filter = {} as { OR: Prisma.StbWhereInput[] };
 
   if (search) {
@@ -31,7 +40,7 @@ export const getStb = async ({ page, perPage, search, status, locationId, device
           contains: search,
           mode: "insensitive",
         },
-      }
+      },
     ];
   }
   return await prisma.stb.findMany({
@@ -39,21 +48,26 @@ export const getStb = async ({ page, perPage, search, status, locationId, device
       ...filter,
       status,
       locationId,
-      deviceLocation
+      deviceLocation,
     },
     orderBy: {
-      createdAt: 'desc',
+      createdAt: "desc",
     },
     take: perPage,
     skip: (Number(page) - 1) * Number(perPage),
     include: {
       location: true,
-    }
+    },
   });
 };
 
 // Menghitung jumlah pesanan
-export const getStbCount = async ({ search, status, locationId, deviceLocation }: IFilterStb) => {
+export const getStbCount = async ({
+  search,
+  status,
+  locationId,
+  deviceLocation,
+}: IFilterStb) => {
   const filter = {} as { OR: Prisma.StbWhereInput[] };
 
   if (search) {
@@ -81,7 +95,7 @@ export const getStbCount = async ({ search, status, locationId, deviceLocation }
           contains: search,
           mode: "insensitive",
         },
-      }
+      },
     ];
   }
   return await prisma.stb.count({
@@ -89,7 +103,7 @@ export const getStbCount = async ({ search, status, locationId, deviceLocation }
       ...filter,
       status,
       locationId,
-      deviceLocation
+      deviceLocation,
     },
   });
 };
@@ -105,8 +119,10 @@ export const getStbById = async (id: string) => {
 
 // Membuat pesanan
 export const createStb = async (data: StbResponseBodyDTO) => {
-  return await prisma.stb.create({
+  const stbId = uuidv4();
+  const response = await prisma.stb.create({
     data: {
+      id: stbId,
       serialNumber: data.serialNumber as string,
       type: data.type as string,
       numberWo: data.numberWo as string,
@@ -121,16 +137,31 @@ export const createStb = async (data: StbResponseBodyDTO) => {
       information: data.information as string,
     },
   });
+  await createHistoryStb({
+    activity: "Create Set Top Box",
+    key: "create",
+    stbId: stbId,
+  });
+  return response;
 };
 
 // Memperbarui pesanan
 export const updateStb = async (id: string, data: StbResponseBodyDTO) => {
-  return await prisma.stb.update({
+  const response = await prisma.stb.update({
     where: {
       id,
     },
     data,
   });
+
+  if (data.status) {
+    await createHistoryStb({
+      activity: `Update Set Top Box status to be ${data.status}`,
+      key: "update",
+      stbId: id,
+    });
+  }
+  return response;
 };
 
 // Menghapus pesanan
@@ -141,4 +172,3 @@ export const deleteStb = async (id: string) => {
     },
   });
 };
-

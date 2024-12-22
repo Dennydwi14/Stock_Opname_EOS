@@ -1,9 +1,11 @@
 import { Router } from "express";
 import { CatchWrapper } from "../../utils/CatchWrapper";
-import { loginController } from "./authController";
+import { checkToken, loginController } from "./authController";
+import { VerifyToken } from "../../middleware/verifyToken";
 
-const route = Router()
+const route = Router();
 
-route.post("/login", CatchWrapper(loginController))
+route.post("/login", CatchWrapper(loginController));
+route.post("/check-token", VerifyToken, CatchWrapper(checkToken));
 
-export default route
+export default route;

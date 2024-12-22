@@ -1,6 +1,8 @@
 import { Prisma, Status } from "@prisma/client";
 import { prisma } from "../../config/prismaConfig";
 import { IFilterOnt, OntResponseBodyDTO } from "./ontsTypes";
+import { createHistoryOnt } from "../history/historiesRepository";
+import { v4 as uuidv4 } from "uuid";
 
 // Mengambil daftar pesanan
 export const getOnt = async ({
@@ -107,8 +109,10 @@ export const getOntById = async (id: string) => {
 
 // Membuat pesanan
 export const createOnt = async (data: OntResponseBodyDTO) => {
-  return await prisma.ont.create({
+  const ontId = uuidv4();
+  const response = await prisma.ont.create({
     data: {
+      id: ontId,
       serialNumber: data.serialNumber as string,
       type: data.type as string,
       numberWo: data.numberWo as string,
@@ -120,16 +124,31 @@ export const createOnt = async (data: OntResponseBodyDTO) => {
       information: data.information as string,
     },
   });
+  await createHistoryOnt({
+    activity: "Create Optical Network Terminal",
+    key: "create",
+    ontId: ontId,
+  });
+  return response;
 };
 
 // Memperbarui pesanan
 export const updateOnt = async (id: string, data: OntResponseBodyDTO) => {
-  return await prisma.ont.update({
+  const response = await prisma.ont.update({
     where: {
       id,
     },
     data,
   });
+
+  if (data.status) {
+    await createHistoryOnt({
+      activity: `Update Optical Network Terminal status to be ${data.status}`,
+      key: "update",
+      ontId: id,
+    });
+  }
+  return response;
 };
 
 // Menghapus pesanan
