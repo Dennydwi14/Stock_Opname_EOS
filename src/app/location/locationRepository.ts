@@ -1,8 +1,14 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "../../config/prismaConfig";
 import { IFilterLocation, LocationResponseBodyDTO } from "./locationTypes";
+import { createCableService } from "../cable/cablesService";
+import { v4 as uuidv4 } from "uuid";
 
-export const getLocation = async ({ page, perPage, search }: IFilterLocation) => {
+export const getLocation = async ({
+  page,
+  perPage,
+  search,
+}: IFilterLocation) => {
   const filter = {} as { OR: Prisma.LocationWhereInput[] };
 
   if (search) {
@@ -71,14 +77,33 @@ export const getLocationById = async (id: string) => {
 };
 
 export const createLocation = async (data: LocationResponseBodyDTO) => {
-  return await prisma.location.create({
+  const locationId = uuidv4();
+  const response = await prisma.location.create({
     data: {
       location: data.location as string,
     },
   });
+  await Promise.all([
+    createCableService({
+      quantity: 0,
+      size: "",
+      type: "Patchcord",
+      locationId,
+    }),
+    createCableService({
+      quantity: 0,
+      size: "",
+      type: "Adaptor",
+      locationId,
+    }),
+  ]);
+  return response;
 };
 
-export const updateLocation = async (id: string, data: LocationResponseBodyDTO) => {
+export const updateLocation = async (
+  id: string,
+  data: LocationResponseBodyDTO
+) => {
   return await prisma.location.update({
     where: {
       id,

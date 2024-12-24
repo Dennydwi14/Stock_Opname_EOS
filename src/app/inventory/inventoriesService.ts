@@ -133,13 +133,13 @@ export const updateInventoryService = async ({
 
   const updatedFields: Partial<InventoryModelTypes> = {};
 
-  if (itemName) updatedFields.itemName = itemName;
-  if (unit) updatedFields.unit = unit;
-  if (damagedQuantity) updatedFields.damagedQuantity = Number(damagedQuantity);
-  if (goodQuantity) updatedFields.goodQuantity = Number(goodQuantity);
-  if (quantity) updatedFields.quantity = Number(quantity);
-  if (information) updatedFields.information = information;
-  if (notes) updatedFields.notes = notes;
+  if (itemName !== undefined) updatedFields.itemName = itemName;
+  if (unit !== undefined) updatedFields.unit = unit;
+  if (damagedQuantity !== undefined) updatedFields.damagedQuantity = Number(damagedQuantity);
+  if (goodQuantity !== undefined) updatedFields.goodQuantity = Number(goodQuantity);
+  if (quantity !== undefined) updatedFields.quantity = Number(quantity);
+  if (information !== undefined) updatedFields.information = information;
+  if (notes !== undefined) updatedFields.notes = notes;
 
   const response = await updateInventory(id, { ...updatedFields });
   return response;

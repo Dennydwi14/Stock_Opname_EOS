@@ -65,7 +65,7 @@ export const updateLocationService =  async ({
 
   const updateFields: Partial<LocationModelTypes> = {};
 
-  if (location) updateFields.location = location;
+  if (location !== undefined) updateFields.location = location;
 
   const response = await updateLocation(id, updateFields);
   return response

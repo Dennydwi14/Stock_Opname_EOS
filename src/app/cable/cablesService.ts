@@ -135,9 +135,9 @@ export const updateCableService = async ({
 
   const updatedFields: Partial<CableModelTypes> = {};
 
-  if (size) updatedFields.size = size;
-  if (type) updatedFields.type = type;
-  if (quantity) updatedFields.quantity = Number(quantity);
+  if (size !== undefined) updatedFields.size = size;
+  if (type !== undefined) updatedFields.type = type;
+  if (quantity !== undefined) updatedFields.quantity = Number(quantity);
 
   const response = await updateCable(id, { ...updatedFields, locationId });
   return response;

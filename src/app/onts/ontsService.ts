@@ -102,17 +102,17 @@ export const updateOntService = async ({
   
   const updatedFields: Partial<OntModelTypes> = {};
   
-  if (serialNumber) updatedFields.serialNumber = serialNumber;
-  if (type) updatedFields.type = type;
-  if (numberWo) updatedFields.numberWo = numberWo;
-  if (unitAddress) updatedFields.unitAddress = unitAddress;
-  if (name) updatedFields.name = name;
-  if (dateActivation) {
+  if (serialNumber !== undefined) updatedFields.serialNumber = serialNumber;
+  if (type !== undefined) updatedFields.type = type;
+  if (numberWo !== undefined) updatedFields.numberWo = numberWo;
+  if (unitAddress !== undefined) updatedFields.unitAddress = unitAddress;
+  if (name !== undefined) updatedFields.name = name;
+  if (dateActivation !== undefined) {
     const date = new Date(dateActivation);
     updatedFields.dateActivation = date;
   };
-  if (status) updatedFields.status = status;
-  if (information) updatedFields.information = information;
+  if (status !== undefined) updatedFields.status = status;
+  if (information !== undefined) updatedFields.information = information;
 
   const response = await updateOnt(id, { ...updatedFields, locationId });
   return response;

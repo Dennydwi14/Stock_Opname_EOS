@@ -121,7 +121,14 @@ export const updateInventoryValidate = async ({
   information,
   notes,
 }: InventoryResponseBodyDTO) => {
-  if (itemName && typeof itemName !== "string") {
+  if (itemName !== undefined && typeof itemName !== "string") {
+    if (!itemName) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.ITEM_NAME,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     return new ErrorApp(
       MESSAGES.ERROR.INVALID.ITEM_NAME,
       400,
@@ -129,7 +136,14 @@ export const updateInventoryValidate = async ({
     );
   }
 
-  if (unit && typeof unit !== "string") {
+  if (unit !== undefined && typeof unit !== "string") {
+    if (!unit) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.UNIT,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     return new ErrorApp(
       MESSAGES.ERROR.INVALID.UNIT,
       400,
@@ -137,7 +151,14 @@ export const updateInventoryValidate = async ({
     );
   }
 
-  if (quantity) {
+  if (quantity !== undefined) {
+    if (!quantity) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.QUANTITY,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     const quantityNumber = Number(quantity);
     if (isNaN(quantityNumber)) {
       return new ErrorApp(
@@ -148,7 +169,14 @@ export const updateInventoryValidate = async ({
     }
   }
 
-  if (damagedQuantity) {
+  if (damagedQuantity !== undefined) {
+    if (!damagedQuantity) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.DAMAGE_QUANTITY,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     const damagedQuantityNumber = Number(damagedQuantity);
     if (isNaN(damagedQuantityNumber)) {
       return new ErrorApp(
@@ -159,7 +187,14 @@ export const updateInventoryValidate = async ({
     }
   }
 
-  if (goodQuantity) {
+  if (goodQuantity !== undefined) {
+    if (!goodQuantity) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.GOOD_QUANTITY,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     const goodQuantityNumber = Number(goodQuantity);
     if (isNaN(goodQuantityNumber)) {
       return new ErrorApp(
@@ -170,7 +205,7 @@ export const updateInventoryValidate = async ({
     }
   }
 
-  if (information && typeof information !== "string") {
+  if (information !== undefined && typeof information !== "string") {
     return new ErrorApp(
       MESSAGES.ERROR.INVALID.INFORMATION,
       400,
@@ -178,7 +213,7 @@ export const updateInventoryValidate = async ({
     );
   }
 
-  if (notes && typeof notes !== "string") {
+  if (notes !== undefined && typeof notes !== "string") {
     return new ErrorApp(
       MESSAGES.ERROR.INVALID.NOTES,
       400,

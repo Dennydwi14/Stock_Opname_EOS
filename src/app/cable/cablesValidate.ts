@@ -63,7 +63,14 @@ export const updateCableValidate = async ({
   quantity,
   size,
 }: CableResponseBodyDTO) => {
-  if (type) {
+  if (type !== undefined) {
+    if (!type) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.TYPE,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     if (!["Adaptor", "Patchcord"].includes(type)) {
       return new ErrorApp(
         MESSAGES.ERROR.INVALID.STATUS,
@@ -73,7 +80,14 @@ export const updateCableValidate = async ({
     }
   }
 
-  if (size) {
+  if (size !== undefined) {
+    if (!size) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.SIZE,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     if (typeof size !== "string") {
       return new ErrorApp(
         MESSAGES.ERROR.INVALID.SERIAL_NUMBER,
@@ -83,7 +97,14 @@ export const updateCableValidate = async ({
     }
   }
 
-  if (quantity) {
+  if (quantity !== undefined) {
+    if (!quantity) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.QUANTITY,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     const quantityNumber = Number(quantity);
     if (isNaN(quantityNumber)) {
       return new ErrorApp(

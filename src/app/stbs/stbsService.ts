@@ -5,7 +5,7 @@ import { StbModelTypes, IFilterStb, StbResponseBodyDTO } from "./stbsTypes"; // 
 import {
   createStb,
   deleteStb,
-  getStb, 
+  getStb,
   getStbById,
   getStbCount,
   updateStb,
@@ -173,20 +173,21 @@ export const updateStbService = async ({
 
   const updatedFields: Partial<StbModelTypes> = {};
 
-  if (serialNumber) updatedFields.serialNumber = serialNumber;
-  if (type) updatedFields.type = type;
-  if (numberWo) updatedFields.numberWo = numberWo;
-  if (unitAddress) updatedFields.unitAddress = unitAddress;
-  if (deviceId) updatedFields.deviceId = deviceId;
-  if (deviceLocation) updatedFields.deviceLocation = deviceLocation;
-  if (notes) updatedFields.notes = notes;
-  if (packageName) updatedFields.packageName = packageName;
-  if (dateActivation) {
+  if (serialNumber !== undefined) updatedFields.serialNumber = serialNumber;
+  if (type !== undefined) updatedFields.type = type;
+  if (numberWo !== undefined) updatedFields.numberWo = numberWo;
+  if (unitAddress !== undefined) updatedFields.unitAddress = unitAddress;
+  if (deviceId !== undefined) updatedFields.deviceId = deviceId;
+  if (deviceLocation !== undefined)
+    updatedFields.deviceLocation = deviceLocation;
+  if (notes !== undefined) updatedFields.notes = notes;
+  if (packageName !== undefined) updatedFields.packageName = packageName;
+  if (dateActivation !== undefined) {
     const date = new Date(dateActivation);
     updatedFields.dateActivation = date;
   }
-  if (status) updatedFields.status = status;
-  if (information) updatedFields.information = information;
+  if (status !== undefined) updatedFields.status = status;
+  if (information !== undefined) updatedFields.information = information;
 
   const response = await updateStb(id, { ...updatedFields, locationId });
   return response;

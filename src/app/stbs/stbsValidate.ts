@@ -183,7 +183,14 @@ export const updateStbValidate = async ({
   status,
   information,
 }: StbResponseBodyDTO) => {
-  if (serialNumber) {
+  if (serialNumber !== undefined) {
+    if (!serialNumber) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.SERIAL_NUMBER,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     if (typeof serialNumber !== "string") {
       return new ErrorApp(
         MESSAGES.ERROR.INVALID.SERIAL_NUMBER,
@@ -193,7 +200,14 @@ export const updateStbValidate = async ({
     }
   }
 
-  if (type) {
+  if (type !== undefined) {
+    if (!type) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.TYPE,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     if (typeof type !== "string") {
       return new ErrorApp(
         MESSAGES.ERROR.INVALID.TYPE,
@@ -203,7 +217,14 @@ export const updateStbValidate = async ({
     }
   }
 
-  if (numberWo) {
+  if (numberWo !== undefined) {
+    if (!numberWo) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.NUMBER_WO,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     if (typeof numberWo !== "string") {
       return new ErrorApp(
         MESSAGES.ERROR.INVALID.NUMBER_WO,
@@ -213,7 +234,14 @@ export const updateStbValidate = async ({
     }
   }
 
-  if (unitAddress) {
+  if (unitAddress !== undefined) {
+    if (!unitAddress) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.UNIT_ADDRESS,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     if (typeof unitAddress !== "string") {
       return new ErrorApp(
         MESSAGES.ERROR.INVALID.UNIT_ADDRESS,
@@ -223,7 +251,14 @@ export const updateStbValidate = async ({
     }
   }
 
-  if (deviceId) {
+  if (deviceId !== undefined) {
+    if (!deviceId) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.DEVICE_ID,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     if (typeof deviceId !== "string") {
       return new ErrorApp(
         MESSAGES.ERROR.INVALID.DEVICE_ID,
@@ -233,7 +268,14 @@ export const updateStbValidate = async ({
     }
   }
 
-  if (packageName) {
+  if (packageName !== undefined) {
+    if (!packageName) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.PACKAGE_NAME,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     if (typeof packageName !== "string") {
       return new ErrorApp(
         MESSAGES.ERROR.INVALID.PACKAGE_NAME,
@@ -243,7 +285,14 @@ export const updateStbValidate = async ({
     }
   }
 
-  if (dateActivation) {
+  if (dateActivation !== undefined) {
+    if (!dateActivation) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.DATE_ACTIVATION,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     const activationDate = new Date(dateActivation);
     if (isNaN(activationDate.getTime())) {
       return new ErrorApp(
@@ -254,7 +303,14 @@ export const updateStbValidate = async ({
     }
   }
 
-  if (deviceLocation) {
+  if (deviceLocation !== undefined) {
+    if (!deviceLocation) {
+      return new ErrorApp(
+        MESSAGES.ERROR.REQUIRED.DEVICE_LOCATION,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
     if (!["Active", "Ready", "Back"].includes(deviceLocation)) {
       return new ErrorApp(
         MESSAGES.ERROR.INVALID.STATUS,
@@ -264,7 +320,7 @@ export const updateStbValidate = async ({
     }
   }
 
-  if (information && typeof information !== "string") {
+  if (information !== undefined && typeof information !== "string") {
     return new ErrorApp(
       MESSAGES.ERROR.INVALID.INFORMATION,
       400,
@@ -272,7 +328,7 @@ export const updateStbValidate = async ({
     );
   }
 
-  if (status && typeof status !== "string") {
+  if (status !== undefined && typeof status !== "string") {
     return new ErrorApp(
       MESSAGES.ERROR.INVALID.STATUS,
       400,
@@ -280,7 +336,7 @@ export const updateStbValidate = async ({
     );
   }
 
-  if (notes && typeof notes !== "string") {
+  if (notes !== undefined && typeof notes !== "string") {
     return new ErrorApp(
       MESSAGES.ERROR.INVALID.NOTES,
       400,

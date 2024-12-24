@@ -76,6 +76,12 @@ export const getOntCount = async ({
         },
       },
       {
+        type: {
+          contains: search,
+          mode: "insensitive",
+        },
+      },
+      {
         serialNumber: {
           contains: search,
           mode: "insensitive",
