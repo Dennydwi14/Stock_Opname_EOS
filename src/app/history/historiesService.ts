@@ -13,7 +13,7 @@ export const getHistoryService = async ({
   type,
 }: IFilterHistory) => {
   let data, totalData;
-  if (type === "stb") {
+  if (type === "Stb") {
     const [stbs, totalStbs] = await Promise.all([
       getHistoryStb({ page, perPage }),
       getHistoryStbCount(),
