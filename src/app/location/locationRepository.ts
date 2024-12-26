@@ -1,8 +1,8 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "../../config/prismaConfig";
 import { IFilterLocation, LocationResponseBodyDTO } from "./locationTypes";
-import { createCableService } from "../cable/cablesService";
 import { v4 as uuidv4 } from "uuid";
+import { createCable } from "../cable/cablesRepository";
 
 export const getLocation = async ({
   page,
@@ -80,17 +80,18 @@ export const createLocation = async (data: LocationResponseBodyDTO) => {
   const locationId = uuidv4();
   const response = await prisma.location.create({
     data: {
+      id: locationId,
       location: data.location as string,
     },
   });
   await Promise.all([
-    createCableService({
+    createCable({
       quantity: 0,
       size: "",
       type: "Patchcord",
       locationId,
     }),
-    createCableService({
+    createCable({
       quantity: 0,
       size: "",
       type: "Adaptor",

@@ -82,9 +82,9 @@ export const createInventoryService = async ({
   const response = await createInventory({
     itemName,
     unit,
-    damagedQuantity,
-    goodQuantity,
-    quantity,
+    damagedQuantity: Number(damagedQuantity),
+    goodQuantity: Number(goodQuantity),
+    quantity: Number(quantity),
     information,
     notes,
   });

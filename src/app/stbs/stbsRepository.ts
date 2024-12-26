@@ -4,7 +4,17 @@ import { IFilterStb, StbResponseBodyDTO } from "./stbsTypes";
 import { createHistoryStb } from "../history/historiesRepository";
 import { v4 as uuidv4 } from "uuid";
 
-// Mengambil daftar pesanan
+export const getAllStb = async ({ locationId }: IFilterStb) => {
+  return await prisma.stb.findMany({
+    where: {
+      locationId,
+    },
+    include: {
+      location: true,
+    },
+  });
+};
+
 export const getStb = async ({
   page,
   perPage,

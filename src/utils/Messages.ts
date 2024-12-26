@@ -24,6 +24,7 @@ export const MESSAGES = {
   },
   ERROR: {
     NOT_FOUND: {
+      EXPORT: "Export data not found",
       STB: "Set Top Box not found",
       CABLE: "Cable not found",
       USER: {
@@ -79,6 +80,7 @@ export const MESSAGES = {
       LOCATION: "Location already exist",
     },
     INVALID: {
+      EXPORT: "Export is invalid",
       SIZE: "Size is invalid",
       ITEM_NAME: "Item Name is invalid",
       UNIT: "Unit is invalid",
@@ -204,6 +206,7 @@ export const MESSAGES = {
     },
   },
   SUCCESS: {
+    EXPORT: "Success to export data",
     CHECK: "Success to check token",
     LOGOUT: "Success to logout",
     HISTORY: {

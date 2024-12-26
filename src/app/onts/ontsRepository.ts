@@ -5,6 +5,17 @@ import { createHistoryOnt } from "../history/historiesRepository";
 import { v4 as uuidv4 } from "uuid";
 
 // Mengambil daftar pesanan
+export const getAllOnt = async ({ locationId }: IFilterOnt) => {
+  return await prisma.ont.findMany({
+    where: {
+      locationId,
+    },
+    include: {
+      location: true,
+    },
+  });
+};
+
 export const getOnt = async ({
   page,
   perPage,

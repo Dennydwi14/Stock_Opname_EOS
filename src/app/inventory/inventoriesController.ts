@@ -67,13 +67,7 @@ export const createInventoryController = async (
   res: Response,
   next: NextFunction
 ) => {
-  const inventory = await createInventoryService({
-    ...req.body,
-    deviceLocation: ((req.body.deviceLocation as string)
-      .charAt(0)
-      .toUpperCase() +
-      (req.body.deviceLocation as string).slice(1).toLowerCase()) as Status,
-  });
+  const inventory = await createInventoryService({ ...req.body });
 
   if (inventory instanceof ErrorApp) {
     next(inventory);
