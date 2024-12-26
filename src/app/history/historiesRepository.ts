@@ -14,7 +14,11 @@ export const getHistoryOnt = async ({ page, perPage }: IFilterHistory) => {
     take: perPage,
     skip: (Number(page) - 1) * Number(perPage),
     include: {
-      ont: true,
+      ont: {
+        include: {
+          location: true,
+        },
+      },
     },
   });
 };
@@ -39,7 +43,11 @@ export const getHistoryStb = async ({ page, perPage }: IFilterHistory) => {
     take: perPage,
     skip: (Number(page) - 1) * Number(perPage),
     include: {
-      stb: true,
+      stb: {
+        include: {
+          location: true,
+        },
+      },
     },
   });
 };

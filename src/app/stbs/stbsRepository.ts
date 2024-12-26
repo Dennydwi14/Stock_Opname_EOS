@@ -149,7 +149,7 @@ export const createStb = async (data: StbResponseBodyDTO) => {
   });
   await createHistoryStb({
     activity: "Create Set Top Box",
-    key: "create",
+    keyword: "create",
     stbId: stbId,
   });
   return response;
@@ -167,7 +167,7 @@ export const updateStb = async (id: string, data: StbResponseBodyDTO) => {
   if (data.status) {
     await createHistoryStb({
       activity: `Update Set Top Box status to be ${data.status}`,
-      key: "update",
+      keyword: "update",
       stbId: id,
     });
   }

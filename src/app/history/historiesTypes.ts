@@ -1,12 +1,12 @@
 export interface HistoryOntResponseBodyDTO {
   ontId: string;
-  key: string;
+  keyword: string;
   activity: string;
 }
 
 export interface HistoryStbResponseBodyDTO {
   stbId: string;
-  key: string;
+  keyword: string;
   activity: string;
 }
 

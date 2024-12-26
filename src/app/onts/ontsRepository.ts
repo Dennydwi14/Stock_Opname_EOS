@@ -143,7 +143,7 @@ export const createOnt = async (data: OntResponseBodyDTO) => {
   });
   await createHistoryOnt({
     activity: "Create Optical Network Terminal",
-    key: "create",
+    keyword: "create",
     ontId: ontId,
   });
   return response;
@@ -161,7 +161,7 @@ export const updateOnt = async (id: string, data: OntResponseBodyDTO) => {
   if (data.status) {
     await createHistoryOnt({
       activity: `Update Optical Network Terminal status to be ${data.status}`,
-      key: "update",
+      keyword: "update",
       ontId: id,
     });
   }

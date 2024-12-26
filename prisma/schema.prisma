@@ -117,7 +117,7 @@ model Inventory {
 model HistoryOnt {
   id             String   @id @unique @default(uuid())
   ontId          String
-  key            String
+  keyword        String
   activity       String
   createdAt      DateTime @default(now())
 
@@ -129,7 +129,7 @@ model HistoryOnt {
 model HistoryStb {
   id             String   @id @unique @default(uuid())
   stbId          String
-  key            String
+  keyword        String
   activity       String
   createdAt      DateTime @default(now())
 
