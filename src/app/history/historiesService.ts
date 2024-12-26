@@ -14,12 +14,12 @@ export const getHistoryService = async ({
 }: IFilterHistory) => {
   let data, totalData;
   if (type === "stb") {
-    const [onts, totalOnts] = await Promise.all([
+    const [stbs, totalStbs] = await Promise.all([
       getHistoryStb({ page, perPage }),
       getHistoryStbCount(),
     ]);
-    data = onts;
-    totalData = totalOnts;
+    data = stbs;
+    totalData = totalStbs;
   } else {
     const [onts, totalOnts] = await Promise.all([
       getHistoryOnt({ page, perPage }),
@@ -28,10 +28,6 @@ export const getHistoryService = async ({
     data = onts;
     totalData = totalOnts;
   }
-
-  // if (!onts.length) {
-  //   return new ErrorApp(MESSAGES.ERROR.NOT_FOUND.HISTORY, 404, MESSAGE_CODE.NOT_FOUND);
-  // }
 
   const response = { data: data, meta: Meta(page, perPage, totalData) };
   return response;
