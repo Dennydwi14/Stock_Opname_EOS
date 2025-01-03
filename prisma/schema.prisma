@@ -1,0 +1,151 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String    @id @unique @default(uuid())
+  name        String
+  email       String    @unique
+  password    String
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Location {
+  id       String  @id @unique @default(uuid())
+  location String
+
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @default(now()) @updatedAt @map("updated_at")
+
+  onts    Ont[]
+  stbs    Stb[]
+  cables  Cable[]
+
+  @@map("locations")
+}
+
+model Ont {
+  id                String   @id @unique @default(uuid())
+  serialNumber      String
+  type              String
+  numberWo          String
+  locationId        String
+  unitAddress       String
+  name              String
+  dateActivation    DateTime
+  status            Status
+  information       String?
+  history           HistoryOnt[]
+
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @default(now()) @updatedAt @map("updated_at")
+
+  location          Location @relation(fields: [locationId], references: [id])
+
+  @@map("onts")
+}
+
+model Stb {
+  id                String   @id @unique @default(uuid())
+  serialNumber      String
+  type              String
+  deviceId          String
+  numberWo          String
+  locationId        String
+  unitAddress       String
+  packageName       String
+  status            String?
+  dateActivation    DateTime
+  deviceLocation    Status
+  information       String?
+  notes             String?
+  history           HistoryStb[]
+
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @default(now()) @updatedAt @map("updated_at")
+
+  location          Location @relation(fields: [locationId], references: [id])
+
+  @@map("stbs")
+}
+
+model Cable {
+  id                String   @id @unique @default(uuid())
+  type              TypeCable
+  quantity          Int
+  size              String
+  locationId        String
+
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @default(now()) @updatedAt @map("updated_at")
+
+  location          Location @relation(fields: [locationId], references: [id])
+  
+  @@map("cables")
+}
+
+model Inventory {
+  id                String   @id @unique @default(uuid())
+  itemName          String
+  unit              String
+  quantity          Int
+  goodQuantity      Int
+  damagedQuantity   Int
+  information       String?
+  notes             String?
+
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("inventories")
+}
+
+model HistoryOnt {
+  id             String   @id @unique @default(uuid())
+  ontId          String
+  keyword        String
+  activity       String
+  createdAt      DateTime @default(now())
+
+  ont            Ont      @relation(fields: [ontId], references: [id])
+
+  @@map("history_onts")
+}
+
+model HistoryStb {
+  id             String   @id @unique @default(uuid())
+  stbId          String
+  keyword        String
+  activity       String
+  createdAt      DateTime @default(now())
+
+  stb            Stb      @relation(fields: [stbId], references: [id])
+
+  @@map("history_stbs")
+}
+
+
+enum Status {
+  Active
+  Ready
+  Terminate
+}
+
+enum TypeCable {
+  Adaptor
+  Patchcord
+}
