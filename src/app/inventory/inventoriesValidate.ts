@@ -61,35 +61,34 @@ export const createInventoryValidate = async ({
     );
   }
 
-  if (!damagedQuantity) {
-    return new ErrorApp(
-      MESSAGES.ERROR.REQUIRED.DAMAGE_QUANTITY,
-      400,
-      MESSAGE_CODE.BAD_REQUEST
-    );
-  }
-
   const damagedQuantityNumber = Number(damagedQuantity);
-  if (isNaN(damagedQuantityNumber)) {
-    return new ErrorApp(
-      MESSAGES.ERROR.INVALID.DAMAGE_QUANTITY,
-      400,
-      MESSAGE_CODE.BAD_REQUEST
-    );
-  }
-
-  if (!goodQuantity) {
-    return new ErrorApp(
-      MESSAGES.ERROR.REQUIRED.GOOD_QUANTITY,
-      400,
-      MESSAGE_CODE.BAD_REQUEST
-    );
+  if (damagedQuantity) {
+    if (isNaN(damagedQuantityNumber)) {
+      return new ErrorApp(
+        MESSAGES.ERROR.INVALID.DAMAGE_QUANTITY,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
   }
 
   const goodQuantityNumber = Number(goodQuantity);
-  if (isNaN(goodQuantityNumber)) {
+  if (goodQuantity) {
+    if (isNaN(goodQuantityNumber)) {
+      return new ErrorApp(
+        MESSAGES.ERROR.INVALID.GOOD_QUANTITY,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
+  }
+
+  if (
+    quantityNumber <
+    (damagedQuantityNumber || 0) + (goodQuantityNumber || 0)
+  ) {
     return new ErrorApp(
-      MESSAGES.ERROR.INVALID.GOOD_QUANTITY,
+      MESSAGES.ERROR.INVALID.AMOUNT_QUANTITY,
       400,
       MESSAGE_CODE.BAD_REQUEST
     );
@@ -170,13 +169,6 @@ export const updateInventoryValidate = async ({
   }
 
   if (damagedQuantity !== undefined) {
-    if (!damagedQuantity) {
-      return new ErrorApp(
-        MESSAGES.ERROR.REQUIRED.DAMAGE_QUANTITY,
-        400,
-        MESSAGE_CODE.BAD_REQUEST
-      );
-    }
     const damagedQuantityNumber = Number(damagedQuantity);
     if (isNaN(damagedQuantityNumber)) {
       return new ErrorApp(
@@ -188,17 +180,30 @@ export const updateInventoryValidate = async ({
   }
 
   if (goodQuantity !== undefined) {
-    if (!goodQuantity) {
-      return new ErrorApp(
-        MESSAGES.ERROR.REQUIRED.GOOD_QUANTITY,
-        400,
-        MESSAGE_CODE.BAD_REQUEST
-      );
-    }
     const goodQuantityNumber = Number(goodQuantity);
     if (isNaN(goodQuantityNumber)) {
       return new ErrorApp(
         MESSAGES.ERROR.INVALID.GOOD_QUANTITY,
+        400,
+        MESSAGE_CODE.BAD_REQUEST
+      );
+    }
+  }
+
+  if (
+    quantity !== undefined ||
+    damagedQuantity !== undefined ||
+    goodQuantity !== undefined
+  ) {
+    const quantityNumber = Number(quantity);
+    const damagedQuantityNumber = Number(damagedQuantity);
+    const goodQuantityNumber = Number(goodQuantity);
+    if (
+      quantityNumber <
+      (damagedQuantityNumber || 0) + (goodQuantityNumber || 0)
+    ) {
+      return new ErrorApp(
+        MESSAGES.ERROR.INVALID.AMOUNT_QUANTITY,
         400,
         MESSAGE_CODE.BAD_REQUEST
       );

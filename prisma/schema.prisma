@@ -103,8 +103,8 @@ model Inventory {
   itemName          String
   unit              String
   quantity          Int
-  goodQuantity      Int
-  damagedQuantity   Int
+  goodQuantity      Int?
+  damagedQuantity   Int?
   information       String?
   notes             String?
 

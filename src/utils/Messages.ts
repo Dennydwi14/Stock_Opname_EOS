@@ -80,6 +80,7 @@ export const MESSAGES = {
       LOCATION: "Location already exist",
     },
     INVALID: {
+      AMOUNT_QUANTITY: "Amount quantity is invalid",
       EXPORT: "Export is invalid",
       SIZE: "Size is invalid",
       ITEM_NAME: "Item Name is invalid",
