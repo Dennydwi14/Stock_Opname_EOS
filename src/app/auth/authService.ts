@@ -38,6 +38,26 @@ export const getUserService = async ({
   return response;
 };
 
+export const getUserByIdService = async (id: string) => {
+  if (!id) {
+    return new ErrorApp(
+      MESSAGES.ERROR.INVALID.ID,
+      400,
+      MESSAGE_CODE.BAD_REQUEST
+    );
+  }
+
+  const user = await getUserById(id);
+  if (!user) {
+    return new ErrorApp(
+      MESSAGES.ERROR.NOT_FOUND.USER.ACCOUNT,
+      404,
+      MESSAGE_CODE.NOT_FOUND
+    );
+  }
+  return user;
+};
+
 export const registerService = async ({
   email,
   name,
@@ -129,7 +149,7 @@ export const updateUserService = async ({
   }
 
   const user = await getUserByEmail(email as string);
-  if (user && userId.id !== id) {
+  if (user && user.id !== id) {
     return new ErrorApp(
       MESSAGES.ERROR.ALREADY.USER,
       400,

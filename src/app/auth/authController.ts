@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import {
   changePasswordService,
   deleteUserService,
+  getUserByIdService,
   getUserService,
   loginService,
   logoutService,
@@ -40,6 +41,29 @@ export const getUserController = async (
     MESSAGES.SUCCESS.USER.GET,
     user.data,
     user.meta
+  );
+};
+
+export const getUserByIdController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+
+  const user = await getUserByIdService(id);
+
+  if (user instanceof ErrorApp) {
+    next(user);
+    return;
+  }
+
+  HandleResponseApi(
+    res,
+    200,
+    MESSAGE_CODE.SUCCESS,
+    MESSAGES.SUCCESS.USER.GET,
+    user
   );
 };
 
@@ -154,7 +178,13 @@ export const deleteUserController = async (
 };
 
 export const checkToken = async (req: Request, res: Response) => {
-  HandleResponseApi(res, 200, MESSAGE_CODE.SUCCESS, MESSAGES.SUCCESS.CHECK);
+  HandleResponseApi(
+    res,
+    200,
+    MESSAGE_CODE.SUCCESS,
+    MESSAGES.SUCCESS.CHECK,
+    JSON.parse(req.params.user)
+  );
 };
 
 export const changePasswordController = async (
