@@ -80,6 +80,12 @@ export const MESSAGES = {
       LOCATION: "Location already exist",
     },
     INVALID: {
+      ROLE: {
+        ADMIN: "You're not admin",
+        USER: "You're not user",
+        LEADER: "You're not leader",
+      },
+      BODY_ROLE: "Body role is invalid",
       AMOUNT_QUANTITY: "Amount quantity is invalid",
       EXPORT: "Export is invalid",
       SIZE: "Size is invalid",
@@ -106,6 +112,7 @@ export const MESSAGES = {
         FORMAT: "NIM must be a number",
         LENGTH: "NIM cannot be more than 14 characters",
       },
+      NOT_ALLOWED_MODIFY_SAME_ACCOUNT: "You are not allowed to modify your own account.",
       AUTH: "Invalid credentials token",
       ANGGOTA: "You're not anggota",
       STATUS: "Status must be active or ready or terminate",
@@ -115,7 +122,6 @@ export const MESSAGES = {
       NIM_ANGGOTA: "Anggota cannot change their NIM",
       CODE_ANGGOTA: "Code is invalid",
       IMAGE_SIZE: "Image size must be less than 5mb",
-      ROLE: "Role is invalid",
       ROLE_ADMIN: "You're not admin",
       CODE_USER: "User is not allowed to use Code",
       FILE_TYPE: "Invalid Image Type",
@@ -152,6 +158,7 @@ export const MESSAGES = {
       ADMIN: "Admin can't access this app",
     },
     REQUIRED: {
+      BODY_ROLE: "Role is required",
       SIZE: "Size is required",
       ITEM_NAME: "Item Name is required",
       UNIT: "Unit is required",

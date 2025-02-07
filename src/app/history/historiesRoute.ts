@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { getHistoryController } from "./historiesController";
 import { CatchWrapper } from "../../utils/CatchWrapper";
-import { VerifyAdmin } from "../../middleware/verifyAdmin";
+import { VerifyToken } from "../../middleware/verifyToken";
 
 const route = Router()
 
-route.get("/", VerifyAdmin, CatchWrapper(getHistoryController))
+route.get("/", VerifyToken, CatchWrapper(getHistoryController))
 
 export default route

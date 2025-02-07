@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { exportOntController, exportStbController } from "./exportsController";
 import { CatchWrapper } from "../../utils/CatchWrapper";
-import { VerifyAdmin } from "../../middleware/verifyAdmin";
+import { VerifyToken } from "../../middleware/verifyToken";
 
 const route = Router();
 
-route.post("/ont", VerifyAdmin, CatchWrapper(exportOntController));
-route.post("/stb", VerifyAdmin, CatchWrapper(exportStbController));
+route.post("/ont", VerifyToken, CatchWrapper(exportOntController));
+route.post("/stb", VerifyToken, CatchWrapper(exportStbController));
 
 export default route;

@@ -28,6 +28,7 @@ export const VerifyToken = (req: Request, res: Response, next: NextFunction) => 
         if (!user) {
             return HandleResponseApi(res, 401, MESSAGE_CODE.UNAUTHORIZED, MESSAGES.ERROR.UNAUTHORIZED.RECOGNIZED)
         }
+        req.params.user = JSON.stringify(user);
         req.params.userId = decoded?.id;
         req.params.token = token;
         next()
