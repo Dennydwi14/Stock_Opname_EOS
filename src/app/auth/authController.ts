@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import {
+  changePasswordService,
   deleteUserService,
   getUserService,
   loginService,
@@ -154,4 +155,26 @@ export const deleteUserController = async (
 
 export const checkToken = async (req: Request, res: Response) => {
   HandleResponseApi(res, 200, MESSAGE_CODE.SUCCESS, MESSAGES.SUCCESS.CHECK);
+};
+
+export const changePasswordController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  // const { email, password } = req.body
+  const { body } = req;
+  const { id } = req.params;
+
+  const change = await changePasswordService({ id, ...body });
+  if (change instanceof ErrorApp) {
+    next(change);
+    return;
+  }
+  HandleResponseApi<LoginAuthResponse>(
+    res,
+    200,
+    MESSAGE_CODE.SUCCESS,
+    MESSAGES.SUCCESS.CHANGE_PASSWORD
+  );
 };

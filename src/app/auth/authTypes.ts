@@ -5,6 +5,12 @@ export interface LoginAuthBodyDTO {
   password: string;
 }
 
+export interface changePasswordBodyDTO {
+  id: string;
+  password: string;
+  newPassword: string;
+}
+
 export interface RegisterAuthBodyDTO {
   email: string;
   name: string;
